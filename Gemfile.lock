@@ -36,8 +36,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    apipie-rails (0.3.6)
-      json
     arel (6.0.3)
     builder (3.2.2)
     byebug (8.2.2)
@@ -161,7 +159,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  apipie-rails
   byebug
   capistrano
   capistrano-rails

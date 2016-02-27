@@ -24,7 +24,6 @@ end
 
 group :development do
   gem 'spring'
-  gem 'apipie-rails'
 
   # deploy tools
   gem "capistrano"
