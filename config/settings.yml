@@ -1,0 +1,7 @@
+development:
+  jwt_secret: 58649324629118be93eb5014197a0c716feba279f9a7acb2cfb88bb2244e79fb1e93fbfff2bb981d09f562ab16afaa1632ee88bfe41ef65946073455e90bb0be
+  jwt_algorithm: HS256
+
+test:
+  jwt_secret: 58649324629118be93eb5014197a0c716feba279f9a7acb2cfb88bb2244e79fb1e93fbfff2bb981d09f562ab16afaa1632ee88bfe41ef65946073455e90bb0be
+  jwt_algorithm: HS256
