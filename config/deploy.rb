@@ -1,6 +1,6 @@
 lock '3.4.0'
 
-set :application, 'odigo_thai'
+set :application, 'jwt_zero_downtime'
 set :repo_url, 'git@github.com:hi-ogawa/rails_jwt_zero_downtime.git'
 set :deploy_to, '/home/ubuntu/app'
 set :branch, ENV["BRANCH"] || "master"
