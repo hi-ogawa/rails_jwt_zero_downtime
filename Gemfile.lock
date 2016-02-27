@@ -36,6 +36,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    apipie-rails (0.3.6)
+      json
     arel (6.0.3)
     builder (3.2.2)
     byebug (8.2.2)
@@ -52,6 +54,7 @@ GEM
     coderay (1.1.0)
     colorize (0.7.7)
     concurrent-ruby (1.0.0)
+    database_cleaner (1.5.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     factory_girl (4.5.0)
@@ -158,9 +161,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails
   byebug
   capistrano
   capistrano-rails
+  database_cleaner
   factory_girl
   factory_girl_rails
   jwt

@@ -18,11 +18,13 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'factory_girl'
-  gem "factory_girl_rails"
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 group :development do
   gem 'spring'
+  gem 'apipie-rails'
 
   # deploy tools
   gem "capistrano"
