@@ -1,0 +1,49 @@
+---
+- name: install ruby dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - zlib1g-dev
+    - libssl-dev
+    - libyaml-dev
+    - libreadline6-dev
+    - zlib1g-dev
+    - libncurses5-dev
+    - libffi-dev
+    - libgdbm3
+    - libgdbm-dev
+
+- name: install ruby (src download)
+  unarchive:
+    src: "{{ ruby_download_url }}"
+    dest: /home/ubuntu/
+    copy: no
+
+- name: check ruby version
+  command: ruby -v
+  register: current_ruby_version
+
+- name: install ruby (build)
+  command: >
+    {{ item }}
+    chdir=/home/ubuntu/ruby-{{ ruby_version }}
+    creates=/usr/local/bin/ruby
+  with_items:
+    - ./configure --enable-shared
+    - make
+    - sudo make install
+  when: current_ruby_version.stdout.find("{{ ruby_version }}") == -1
+
+- name: Add ruby symlinks.
+  file:
+    src: "/usr/local/bin/{{ item }}"
+    dest: "/usr/bin/{{ item }}"
+    state: link
+    force: yes
+  with_items:
+    - erb
+    - gem
+    - irb
+    - rake
+    - rdoc
+    - ruby
+  when: current_ruby_version.stdout.find("{{ ruby_version }}") == -1

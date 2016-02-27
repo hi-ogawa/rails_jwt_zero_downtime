@@ -1,0 +1,14 @@
+---
+- include: ruby.yml
+
+- name: install postgres client libraries
+  apt: name={{ item }} state=present
+  with_items:
+    - postgresql-contrib
+    - libpq-dev
+
+- name: install ruby gems
+  gem: name={{ item }} state=present user_install=no
+  with_items:
+    - bundler
+    - pg

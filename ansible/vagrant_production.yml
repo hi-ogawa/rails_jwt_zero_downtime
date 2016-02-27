@@ -1,0 +1,12 @@
+---
+- hosts: vagrant_production
+  user: ubuntu
+  become: true
+  vars_files:
+    - vars/secret.yml
+    - vars/non_secret.yml
+  roles:
+    - common
+    - rails
+    - nginx
+    - postgres
