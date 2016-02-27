@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
     get "status" => "status#show"
 
+    get "users/me" => "users#me"
 
+    post "auth/login" => "auth#login"
 
+    match "*path" => "base#route_not_found", via: :all
+  end
 end
