@@ -26,6 +26,7 @@ group :development do
   gem 'spring'
 
   # deploy tools
-  gem "capistrano"
+  gem 'capistrano'
   gem 'capistrano-rails'
+  gem 'capistrano-upload-config'
 end
