@@ -4,11 +4,18 @@ This repository is for understanding:
 
 - zero downtime deployment
   - ansible
-  - aws (sdk automation) (test on vagrant is enough?)
+  - test on vagrant
   - capistrano
   - puma
 
-- jwt based authentication within multi backend and multi frontend
+- jwt based authentication api on rails
+
+### Next Scope
+
+- use real infrastructure
+  - aws (with sdk automation)
+  - multi server
+- multi backend and multi frontend with shared account
 
 ### Notes
 
@@ -21,6 +28,7 @@ This repository is for understanding:
   - imitate slow server starts with `config/initializers/slowdown_server_start.rb`
   - `pumactl restart` with `preload_app!`: even though
   - `pumactl phased-restart`:
+
 
 ### References
 
