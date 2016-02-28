@@ -17,11 +17,21 @@ set :linked_files, [
 ]
 set :linked_dirs, ['log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system']
 
-# capistrano-upload-config
-set :config_files, fetch(:linked_files)
-
-
 ## custom tasks ##
+
+namespace :config do
+  task :push, [:filename] do |task, args|
+    on roles(:app), in: :parallel do
+      files = fetch(:linked_files).select{|f| f.match(args[:filename] || "")}
+      files.each do |file|
+        upload!(
+          file.gsub(".yml", ".#{fetch(:stage)}.yml"),
+          "#{fetch(:deploy_to)}/shared/#{file}"
+        )
+      end
+    end
+  end
+end
 
 namespace :deploy do
 
@@ -42,7 +52,12 @@ namespace :deploy do
   desc "place nginx config files to where nginx recognizes"
   task :copy_nginx_config do
     on roles(:web) do
-      upload! "config/system/nginx/#{fetch(:stage)}.conf", "#{release_path}/config/system/nginx" if ENV["COPY_FROM_LOCAL"]
+      if ENV["COPY_FROM_LOCAL"]
+        upload!(
+          "config/system/nginx/#{fetch(:stage)}.conf",
+          "#{release_path}/config/system/nginx"
+        )
+      end
       execute "sudo ln -sf #{release_path}/config/system/nginx/#{fetch(:stage)}.conf /etc/nginx/sites-enabled/"
     end
   end

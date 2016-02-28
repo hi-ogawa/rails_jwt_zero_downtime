@@ -49,8 +49,6 @@ GEM
     capistrano-rails (1.1.5)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capistrano-upload-config (0.6.0)
-      capistrano (>= 3.0)
     coderay (1.1.0)
     colorize (0.7.7)
     concurrent-ruby (1.0.0)
@@ -164,7 +162,6 @@ DEPENDENCIES
   byebug
   capistrano
   capistrano-rails
-  capistrano-upload-config
   database_cleaner
   factory_girl
   factory_girl_rails
