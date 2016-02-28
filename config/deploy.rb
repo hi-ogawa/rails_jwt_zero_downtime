@@ -17,51 +17,72 @@ set :linked_files, [
 ]
 set :linked_dirs, ['log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system']
 
-## custom tasks ##
+set :puma_config_file, "config/system/puma/#{fetch(:stage)}.rb"
+set :nginx_config_file, "config/system/nginx/#{fetch(:stage)}.conf"
 
 namespace :config do
+  desc "push .yml files from local"
   task :push, [:filename] do |task, args|
     on roles(:app), in: :parallel do
       files = fetch(:linked_files).select{|f| f.match(args[:filename] || "")}
       files.each do |file|
         upload!(
           file.gsub(".yml", ".#{fetch(:stage)}.yml"),
-          "#{fetch(:deploy_to)}/shared/#{file}"
+          "#{shared_path}/#{file}"
         )
       end
     end
   end
 end
 
-namespace :deploy do
-
-  namespace :puma do
-    task :start do
-    end
-
-    task :stop do
-    end
-
-    task :restart do
-    end
-
-    task :status do
-    end
-  end
-
-  desc "place nginx config files to where nginx recognizes"
-  task :copy_nginx_config do
-    on roles(:web) do
-      if ENV["COPY_FROM_LOCAL"]
-        upload!(
-          "config/system/nginx/#{fetch(:stage)}.conf",
-          "#{release_path}/config/system/nginx"
-        )
+namespace :puma do
+  desc "start"
+  task :start do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, "exec puma -C #{release_path}/#{fetch(:puma_config_file)}"
       end
-      execute "sudo ln -sf #{release_path}/config/system/nginx/#{fetch(:stage)}.conf /etc/nginx/sites-enabled/"
     end
   end
-  before :published, :copy_nginx_config
+
+  desc "pumactl (stop, restart, phased-restart, status)"
+  task :control, [:command] do |task, args|
+    on roles(:app) do
+      within current_path do
+        execute :bundle, "exec pumactl -F #{release_path}/#{fetch(:puma_config_file)} #{args[:command]}"
+      end
+    end
+  end
+
+  desc "copy puma config file"
+  task :push_config do
+    on roles(:app) do
+      upload!("#{fetch(:puma_config_file)}", "#{release_path}/#{fetch(:puma_config_file)}")
+    end
+  end
+end
+
+# NOTE: don't need to manage nginx setting for usual deployment
+namespace :nginx do
+
+  desc "restart"
+  task :restart do
+    execute "sudo service nginx restart"
+  end
+
+  desc "push config file from local"
+  task :push_config do
+    on roles(:web) do
+      upload!("#{fetch(:nginx_config_file)}", "#{release_path}/#{fetch(:nginx_config_file)}")
+    end
+  end
+
+  desc "set nginx config file"
+  task :set_config do
+    on roles(:web) do
+      execute("sudo ln -sf #{release_path}/#{fetch(:nginx_config_file)} /etc/nginx/sites-enabled/")
+    end
+  end
 end
 
 # usage: cap production invoke[db:seed]
@@ -70,14 +91,12 @@ task :invoke, [:command] => 'deploy:set_rails_env' do |task, args|
   on roles(:db) do
     within release_path do
       with :rails_env => fetch(:rails_env) do
-        rake args[:command]
+        puts "== command output: start =="
+        puts capture :rake, args[:command]
+        puts "== command output: end =="
       end
     end
   end
-end
-
-def rsync(from, to)
-  "rsync -avz -e 'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' --delete #{from} #{to}"
 end
 
 # for capistrano debug

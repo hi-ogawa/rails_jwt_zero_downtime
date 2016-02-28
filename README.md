@@ -30,3 +30,9 @@ __references__
   - postgresql:
     - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04
     - https://github.com/radar/ansible-rails-app/tree/master/roles/database
+
+- puma, nginx:
+  - various way of restart: https://github.com/puma/puma/tree/v2.14.0#restart
+  - http://ruby-journal.com/how-to-setup-rails-app-with-puma-and-nginx/
+  - https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04
+  - https://github.com/seuros/capistrano-puma/blob/master/lib/capistrano/tasks/puma.rake
