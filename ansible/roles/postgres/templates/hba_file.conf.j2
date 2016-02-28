@@ -1,0 +1,6 @@
+# http://www.postgresql.org/docs/9.3/static/auth-pg-hba-conf.html
+
+# host - db - user - method
+local all postgres peer
+
+{{ postgres.hba_config }}
