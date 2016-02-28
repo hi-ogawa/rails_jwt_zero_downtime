@@ -46,7 +46,7 @@ namespace :puma do
   end
 
   desc "pumactl (stop, restart, phased-restart, status)"
-  task :ctrl, [:command] do |task, args|
+  task :ctl, [:command] do |task, args|
     on roles(:app) do
       within current_path do
         execute :bundle, "exec pumactl -F #{release_path}/#{fetch(:puma_config_file)} #{args[:command]}"
@@ -56,10 +56,10 @@ namespace :puma do
 
   after "deploy:published", "" do
     if ENV["NON_PHASED_RESTART"]
-      invoke("puma:control", "restart")
+      invoke("puma:ctl", "restart")
     else
       # NOTE: `phased-restart` is INCOMPATIBLE with `preload_app!`
-      invoke("puma:control", "phased-restart")
+      invoke("puma:ctl", "phased-restart")
     end
   end
 
