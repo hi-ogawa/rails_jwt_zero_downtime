@@ -46,7 +46,7 @@ namespace :puma do
   end
 
   desc "pumactl (stop, restart, phased-restart, status)"
-  task :control, [:command] do |task, args|
+  task :ctrl, [:command] do |task, args|
     on roles(:app) do
       within current_path do
         execute :bundle, "exec pumactl -F #{release_path}/#{fetch(:puma_config_file)} #{args[:command]}"
@@ -96,8 +96,9 @@ task :invoke, [:command] => 'deploy:set_rails_env' do |task, args|
   on roles(:db) do
     within release_path do
       with :rails_env => fetch(:rails_env) do
+        output = capture :rake, args[:command]
         puts "== command output: start =="
-        puts capture :rake, args[:command]
+        puts output
         puts "== command output: end =="
       end
     end
