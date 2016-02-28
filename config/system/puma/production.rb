@@ -14,9 +14,3 @@ bind "unix:///home/ubuntu/app/shared/tmp/sockets/puma.sock"
 
 threads 1, 6
 workers 2
-
-preload_app!
-
-on_worker_boot do
-  ActiveRecord::Base.establish_connection
-end

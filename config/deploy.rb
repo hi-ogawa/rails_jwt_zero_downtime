@@ -54,6 +54,11 @@ namespace :puma do
     end
   end
 
+  # NOTE: `phased-restart` is INCOMPATIBLE with `preload_app!`
+  after "deploy:published", "" do
+    invoke("puma:control", "phased-restart")
+  end
+
   desc "copy puma config file"
   task :push_config do
     on roles(:app) do
