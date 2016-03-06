@@ -6,4 +6,4 @@ require File.expand_path('../config/application', __FILE__)
 Rails.application.load_tasks
 
 # show raw sql log for any rake tasks
-ActiveRecord::Base.logger = Logger.new(STDOUT)
+ActiveRecord::Base.logger = Logger.new(STDOUT) if ENV['ACTIVE_RECORD_LOG']

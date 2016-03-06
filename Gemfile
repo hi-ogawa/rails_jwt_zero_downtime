@@ -29,3 +29,9 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-rails'
 end
+
+group :test do
+  # CI plugins
+  gem 'ci_reporter'
+  gem 'ci_reporter_rspec'
+end
