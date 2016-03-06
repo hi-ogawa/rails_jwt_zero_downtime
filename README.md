@@ -1,4 +1,4 @@
-[![Build Status](http://jenkins.hiogawa.net:8080/buildStatus/icon?job=rails_jwt_zero_downtime)](http://jenkins.hiogawa.net:8080/job/rails_jwt_zero_downtime)
+[![Build Status](http://jenkins.hiogawa.net:8080/buildStatus/icon?job=rails_jwt_zero_downtime)](http://jenkins.hiogawa.net:8080/job/rails_jwt_zero_downtime) (this ci is setup from https://github.com/hi-ogawa/jenkins_rails_ansible)
 
 ### Motivation
 
