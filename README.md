@@ -1,5 +1,8 @@
 [![Build Status](http://jenkins.hiogawa.net/buildStatus/icon?job=rails_jwt_zero_downtime)](http://jenkins.hiogawa.net/job/rails_jwt_zero_downtime) (this ci is setup from https://github.com/hi-ogawa/jenkins_rails_ansible)
 
+[![Build Status](https://circleci.com/gh/hi-ogawa/rails_jwt_zero_downtime/tree/master.svg?style=shield)](https://circleci.com/gh/hi-ogawa/rails_jwt_zero_downtime)
+
+
 ### Motivation
 
 This repository is for understanding:
