@@ -21,4 +21,11 @@ describe Api::UsersController, type: :controller do
       end
     end
   end
+
+  describe "post :create" do
+    it "." do
+      resp = get :create, {user: FactoryGirl.attributes_for(:user)}
+      expect(resp.status).to eq(200)
+    end
+  end
 end

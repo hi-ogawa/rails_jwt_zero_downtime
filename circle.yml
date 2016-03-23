@@ -1,0 +1,16 @@
+machine:
+  ruby:
+    version:
+      2.2.3
+
+dependencies:
+  pre:
+    - gem install bundler --pre
+
+database:
+  override:
+    - RAILS_ENV=test bundle exec rake db:create db:schema:load
+
+test:
+  override:
+    - bundle exec rspec spec
